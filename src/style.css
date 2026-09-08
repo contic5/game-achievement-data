@@ -1,9 +1,10 @@
 #root
 {
-    margin: 0px 10px;
+    margin: auto;
     padding: 10px;
     background-color: hsl(210, 60%, 75%);
     min-height: 100vh;
+    max-width: 800px;
 }
 body
 {

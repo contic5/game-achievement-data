@@ -15,6 +15,24 @@ export function record_array_to_2d_array(record_array:Record<any,any>[])
     return res;
 }
 
+export function get_unique_values(record_array:Record<any,any>[],target_column:string,ignore_blank=true)
+{
+    let unique_values=new Set();
+    for(let row of record_array)
+    {
+        if(ignore_blank&&row[target_column])
+        {
+            unique_values.add(row[target_column]);
+        }
+        else if(!ignore_blank)
+        {
+            unique_values.add(row[target_column]);
+        }
+    }
+
+    return [...unique_values];
+}
+
 //Randomly shuffle data
 export function shuffle_values(arr:any[])
 {
