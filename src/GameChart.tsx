@@ -11,8 +11,13 @@ ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Title, T
 function GameChart(props: any)
 {
     const achievement_data=props.achievement_data;
-    const achievement_percents: number[]=get_unique_values(achievement_data,"Percent") as number[];
-    const labels=get_unique_values(achievement_data,"Marker");
+    const achievement_percents: number[]=new Array(7);
+    const labels=["Game Start","First Boss","Early Game","Mid Game","Final Boss","DLC First Boss","DLC Final Boss"];
+    for(let row of achievement_data)
+    {
+        const label_index=labels.indexOf(row["Marker"])
+        achievement_percents[label_index]=100*row["Percent"];
+    }
     const game_title=achievement_data[0]["Game"];
 
     let datasets=[];
@@ -34,11 +39,11 @@ function GameChart(props: any)
         scales: {
             y: {
                 min: 0,   // Optional: Force scale to start at 0%
-                max: 1, // Optional: Force scale to end at 100%
+                max: 100, // Optional: Force scale to end at 100%
                 ticks: {
                     // Append a percentage sign to the Y-axis tick values
                     callback: function(value: string | number) {
-                      return `${100 * Number(value)}%`;
+                      return `${Number(value)}%`;
                     }
                 }
             }
@@ -59,6 +64,11 @@ function GameChart(props: any)
         }
     };
 
+    const trs=achievement_data.map((row: any)=><tr>
+    <td>{row["Marker"]}</td>
+    <td>{row["Name"]}</td>
+    <td>{Math.round(row["Percent"]*100)}%</td>
+    </tr>)
     return (<>
     <h2>
     {game_title} Achievement Data
@@ -67,6 +77,19 @@ function GameChart(props: any)
     data={data}
     options={options}
     />
+
+    <table className="table">
+    <thead>
+    <tr>
+    <th>Marker</th>
+    <th scope="col">Achievement</th>
+    <th scope="col">Percent</th>
+    </tr>
+    </thead>
+    <tbody>
+    {trs}
+    </tbody>
+    </table>
     </>);
 }
 
