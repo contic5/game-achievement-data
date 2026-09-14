@@ -52,8 +52,8 @@ def get_page_data(achievement_arr,game,page_source):
 def main():
     achievement_arr=[]
 
-    game_df=pd.read_excel("Steam_Games.xlsx")
-    start_row=11
+    game_df=pd.read_excel("public/Steam Achievements Stable.xlsx",sheet_name="Games")
+    start_row=13
     for index,row in game_df.iterrows():
         if index<start_row:
             continue
