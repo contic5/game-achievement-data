@@ -53,7 +53,7 @@ def main():
     achievement_arr=[]
 
     game_df=pd.read_excel("public/Steam Achievements Stable.xlsx",sheet_name="Games")
-    start_row=13
+    start_row=14
     for index,row in game_df.iterrows():
         if index<start_row:
             continue

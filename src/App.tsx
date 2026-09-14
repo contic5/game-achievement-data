@@ -7,8 +7,8 @@ function App()
   //Excel data is stored as dictionary for easier column access.I care about access the exact column name.
   const [achievement_data, setAchievementData] = useState<Record<any,any>[]>([]);
   const [game_charts,setGameCharts]=useState<React.JSX.Element[]>([]);
-  const [sort_by,setSortBy]=useState("Year");
-  const [sort_ascending,setSortAscending]=useState(false);
+  const [sort_by,setSortBy]=useState("Game");
+  const [sort_ascending,setSortAscending]=useState(true);
 
   function update_sort_by(e: React.ChangeEvent<HTMLSelectElement>)
   {
@@ -37,13 +37,27 @@ function App()
   {
     console.log(sort_by);
     let achievement_data_temp=[...achievement_data];
-    if(sort_ascending==true)
+    if(sort_by=="Game")
     {
-      achievement_data_temp.sort((a,b)=>a[sort_by]-b[sort_by]);
+      if(sort_ascending==true)
+      {
+        achievement_data_temp.sort((a,b)=>a[sort_by].localeCompare(b[sort_by]));
+      }
+      else
+      {
+        achievement_data_temp.sort((a,b)=>b[sort_by].localeCompare(a[sort_by]));
+      }
     }
     else
     {
-      achievement_data_temp.sort((a,b)=>b[sort_by]-a[sort_by]);
+      if(sort_ascending==true)
+      {
+        achievement_data_temp.sort((a,b)=>a[sort_by]-b[sort_by]);
+      }
+      else
+      {
+        achievement_data_temp.sort((a,b)=>b[sort_by]-a[sort_by]);
+      }
     }
     setAchievementData(achievement_data_temp);
   },[sort_ascending,sort_by]);
@@ -83,6 +97,7 @@ function App()
       <div className="row">
       <div className="col-6 border">
       <select id="sort_by" value={sort_by} onChange={update_sort_by}>
+      <option value="Game">Game</option>
       <option value="Percent">Percent</option>
       <option value="Year">Year</option>
       </select>

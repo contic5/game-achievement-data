@@ -1,6 +1,6 @@
 import { CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip, Chart as ChartJS } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { get_unique_values } from './support';
+//import { get_unique_values } from './support';
 
 // Register the scales and elements you need
 ChartJS.register(CategoryScale, LinearScale, LineElement, PointElement, Title, Tooltip);
