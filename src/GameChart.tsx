@@ -15,7 +15,7 @@ function GameChart(props: any)
     const labels=["Game Start","First Boss","Early Game","Mid Game","Final Boss","DLC First Boss","DLC Final Boss"];
     for(let row of achievement_data)
     {
-        const label_index=labels.indexOf(row["Marker"])
+        const label_index=labels.indexOf(row["Category"])
         achievement_percents[label_index]=100*row["Percent"];
     }
     const game_title=achievement_data[0]["Game"];
@@ -65,14 +65,14 @@ function GameChart(props: any)
     };
 
     const trs=achievement_data.map((row: any)=><tr>
-    <td>{row["Marker"]}</td>
+    <td>{row["Category"]}</td>
     <td>{row["Name"]}</td>
     <td>{Math.round(row["Percent"]*100)}%</td>
     </tr>)
     return (<>
-    <h2>
+    <h3>
     {game_title} Achievement Data
-    </h2>
+    </h3>
     <Line
     data={data}
     options={options}
@@ -81,7 +81,7 @@ function GameChart(props: any)
     <table className="table">
     <thead>
     <tr>
-    <th>Marker</th>
+    <th>Category</th>
     <th scope="col">Achievement</th>
     <th scope="col">Percent</th>
     </tr>

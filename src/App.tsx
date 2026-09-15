@@ -10,7 +10,7 @@ function App()
   const [sort_by,setSortBy]=useState("Game");
   const [sort_ascending,setSortAscending]=useState(true);
 
-  const markers=["Game Start","First Boss","Early Game","Mid Game","Final Boss","DLC First Boss","DLC Final Boss"];
+  const categories=["Game Start","First Boss","Early Game","Mid Game","Final Boss","DLC First Boss","DLC Final Boss"];
 
   function update_sort_by(e: React.ChangeEvent<HTMLSelectElement>)
   {
@@ -27,7 +27,7 @@ function App()
     let b_percent=0;
     for(let achievement of a)
     {
-      if(achievement["Marker"]==sort_by)
+      if(achievement["Category"]==sort_by)
       {
         a_percent=achievement["Percent"];
         break;
@@ -35,7 +35,7 @@ function App()
     }
     for(let achievement of b)
     {
-      if(achievement["Marker"]==sort_by)
+      if(achievement["Category"]==sort_by)
       {
         b_percent=achievement["Percent"];
         break;
@@ -90,11 +90,11 @@ function App()
       let achivement_data_filtered_arr=[];
       for(let game of games)
       {
-        let achivement_data_filtered=achievement_data_temp.filter(row=>row["Game"]==game&&row["Marker"]!=""&&row["Marker"]!=null);
+        let achivement_data_filtered=achievement_data_temp.filter(row=>row["Game"]==game&&row["Category"]!=""&&row["Category"]!=null);
         achivement_data_filtered_arr.push(achivement_data_filtered) 
       }
 
-      if(markers.includes(sort_by))
+      if(categories.includes(sort_by))
       {
         achivement_data_filtered_arr.sort(sort_filtered_achievements);
         if(sort_ascending==false)
@@ -117,6 +117,19 @@ function App()
   return (
     <>
       <h1>Steam Achievement Data</h1>
+      <h2>About</h2>
+      <p>This project tracks Steam Achivement Pecents for some achievement categories.</p>
+      <ul className="list-group">
+      <li className="list-group-item"><b>Game Start:</b> The player achieved the earliest possible achivement. This is often the during the prologue.</li>
+      <li className="list-group-item"><b>First Boss:</b> The player beat the first boss.</li>
+      <li className="list-group-item"><b>Early Game:</b> The player beat the early game (about 1/3 of the way through the game). This was determined by me.</li>
+      <li className="list-group-item"><b>Mid Game:</b> The player beat the mid game (about 2/3 of the way through the game). This was determined by me.</li>
+      <li className="list-group-item"><b>Final Boss:</b> The player beat the final boss and finished the game.</li>
+      <li className="list-group-item"><b>DLC First Boss:</b> The player beat the first boss in a DLC. This is absent if the game does not have DLC achivements.</li>
+      <li className="list-group-item"><b>DLC Final Boss:</b> The player beat the final boss in the last DLC. This is absent if the game does not have DLC achivements.</li>
+      </ul>
+
+      <h2>Results</h2>
       <div className="container d-inline-block bg-light border" id="settings_grid">
       <div className="row">
       <div className="col border">
