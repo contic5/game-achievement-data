@@ -18,6 +18,12 @@ canvas
 #settings_grid
 {
     max-width: 400px !important;
+    font-size:20px;
+}
+#settings_grid button
+{
+    font-size: 32px;
+    margin-right: 10px;
 }
 /*
 #settings_grid .row

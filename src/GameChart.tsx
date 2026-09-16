@@ -19,6 +19,7 @@ function GameChart(props: any)
         achievement_percents[label_index]=100*row["Percent"];
     }
     const game_title=achievement_data[0]["Game"];
+    const year=achievement_data[0]["Year"];
 
     let datasets=[];
     const dataset={
@@ -52,7 +53,7 @@ function GameChart(props: any)
           title: {
             display: true,
             // Pass an array of strings for multiple lines
-            text: `${game_title} Achievement Data`,
+            text: `${game_title} (${year}) Achievement Data`,
             font: {
               size: 16
             },
@@ -71,7 +72,7 @@ function GameChart(props: any)
     </tr>)
     return (<>
     <h3>
-    {game_title} Achievement Data
+    {game_title} ({year}) Achievement Data
     </h3>
     <Line
     data={data}
