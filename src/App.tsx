@@ -65,17 +65,28 @@ function App()
 
     if(sort_by=="Game")
     {
-      achievement_data_temp.sort((a,b)=>a[sort_by].localeCompare(b[sort_by]));
+      if(sort_ascending)
+      {
+        achievement_data_temp.sort((a,b)=>a[sort_by].localeCompare(b[sort_by]));
+      }
+      else
+      {
+          achievement_data_temp.sort((a,b)=>b[sort_by].localeCompare(a[sort_by]));
+      }
     }
     else
     {
-      achievement_data_temp.sort((a,b)=>a[sort_by]-b[sort_by]);
+      if(sort_ascending)
+      {
+        achievement_data_temp.sort((a,b)=>a[sort_by]-b[sort_by]);
+      }
+      else
+      {
+        achievement_data_temp.sort((a,b)=>b[sort_by]-a[sort_by]);
+      }
     }
 
-    if(sort_ascending==false)
-    {
-      achievement_data_temp=achievement_data_temp.reverse();
-    }
+    
     setAchievementData(achievement_data_temp);
   },[sort_ascending,sort_by]);
 
@@ -114,6 +125,17 @@ function App()
   },[achievement_data])
 
   
+  let up_arrow=<>↑</>;
+  let down_arrow=<>↓</>;
+  if(sort_ascending)
+  {
+    up_arrow=<b style={{color:"blue"}}>↑</b>
+  }
+  else
+  {
+    down_arrow=<b style={{color:"blue"}}>↓</b>
+  }
+
   return (
     <>
       <h1>Steam Achievement Data</h1>
@@ -125,7 +147,7 @@ function App()
       <li className="list-group-item"><b>Early Game:</b> The player beat the early game (about 1/3 of the way through the game). This was determined by me.</li>
       <li className="list-group-item"><b>Mid Game:</b> The player beat the mid game (about 2/3 of the way through the game). This was determined by me.</li>
       <li className="list-group-item"><b>Final Boss:</b> The player beat the final boss and finished the game.</li>
-      <li className="list-group-item"><b>DLC First Boss:</b> The player beat the first boss in a DLC. This is absent if the game does not have DLC achivements.</li>
+      <li className="list-group-item"><b>DLC First Boss:</b> The player beat the first boss in the first DLC. This is absent if the game does not have DLC achivements.</li>
       <li className="list-group-item"><b>DLC Final Boss:</b> The player beat the final boss in the last DLC. This is absent if the game does not have DLC achivements.</li>
       </ul>
 
@@ -154,8 +176,8 @@ function App()
       </select>
       </div>
       <div className="col border">
-      <button id="asc_button" onClick={()=>update_sort_ascending(true)}>↑</button>
-      <button id="desc_button" onClick={()=>update_sort_ascending(false)}>↓</button>
+      <button id="asc_button" onClick={()=>update_sort_ascending(true)}>{up_arrow}</button>
+      <button id="desc_button" onClick={()=>update_sort_ascending(false)}>{down_arrow}</button>
       </div>
       </div>
       </div>
